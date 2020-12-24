@@ -1,0 +1,8 @@
+.todo-list-footer {
+    display: flex;
+    align-items: center;
+}
+
+.activeKey-controller {
+    margin: auto;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
-import { Input, List } from "antd";
+import {Button, Input, List, Radio} from "antd";
 import { v4 as uuidV4 } from 'uuid'
+import TodoListFooter from "./TodoListFooter";
 import TodoItem from "./TodoItem";
 import { storage } from "./utils";
 import {ACTIVE_TODOS, ALL_TODOS, COMPLETED_TODOS, ENTER_KEY} from "./constants";
@@ -49,6 +50,14 @@ function App({ initTodoList }) {
     setEditing(null)
   }
 
+  const handleChangeShowState = e => {
+    setShowState(e.target.value)
+  }
+
+  const handleClearAllCompleted = () => {
+    setTodoList(prevState => prevState.filter(todo => !todo.completed))
+  }
+
   const needShowTodoList = useMemo(() => {
     const showTodos = todoList.filter(todo => {
       switch(showState) {
@@ -63,6 +72,13 @@ function App({ initTodoList }) {
 
     return showTodos
   }, [showState, todoList])
+
+  const activeTodoCount = useMemo(() => {
+    const count = todoList.reduce((accum, todo) => todo.completed ? accum : accum + 1, 0)
+    return count
+  }, [todoList])
+
+  const completedTodoCount = todoList.length - activeTodoCount
 
   useEffect(() => {
     // when the state changed, persist it
@@ -82,6 +98,15 @@ function App({ initTodoList }) {
           <List
               bordered
               dataSource={needShowTodoList}
+              footer={
+                (!!activeTodoCount || !!completedTodoCount) && <TodoListFooter
+                    activeTodoCount={activeTodoCount}
+                    completedTodoCount={completedTodoCount}
+                    handleChangeShowState={handleChangeShowState}
+                    handleClearAllCompleted={handleClearAllCompleted}
+                    showState={showState}
+                />
+              }
               renderItem={todo => <List.Item>
                 <TodoItem
                     {...todo}
