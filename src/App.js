@@ -58,7 +58,7 @@ function App({ initTodoList }) {
   }
 
   const needShowTodoList = useMemo(() => {
-    const showTodos = todoList.filter(todo => {
+    return todoList.filter(todo => {
       switch(showState) {
         case ACTIVE_TODOS:
           return !todo.completed
@@ -69,12 +69,11 @@ function App({ initTodoList }) {
       }
     })
 
-    return showTodos
+
   }, [showState, todoList])
 
   const activeTodoCount = useMemo(() => {
-    const count = todoList.reduce((accum, todo) => todo.completed ? accum : accum + 1, 0)
-    return count
+    return todoList.reduce((accum, todo) => todo.completed ? accum : accum + 1, 0)
   }, [todoList])
 
   const completedTodoCount = todoList.length - activeTodoCount
