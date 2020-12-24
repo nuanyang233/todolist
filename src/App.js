@@ -32,6 +32,10 @@ function App({ initTodoList }) {
     setTodoList(prevState => prevState.filter(todo => todo.id !== id))
   }
 
+  const handleToggle = (id) => {
+    setTodoList(prevState => prevState.map(todo => todo.id !== id ? todo : { ...todo, completed: !todo.completed }))
+  }
+
   const needShowTodoList = useMemo(() => {
     const showTodos = todoList.filter(todo => {
       switch(showState) {
@@ -64,9 +68,14 @@ function App({ initTodoList }) {
           />
           <List
               bordered
-              dataSource={todoList}
+              dataSource={needShowTodoList}
               renderItem={todo => <List.Item>
-                <TodoItem {...todo} editing={editing} handleDelete={() => handleDelete(todo.id)} />
+                <TodoItem
+                    {...todo}
+                    editing={editing}
+                    handleDelete={() => handleDelete(todo.id)}
+                    handleToggle={() => handleToggle(todo.id)}
+                />
               </List.Item>}
           />
         </div>
