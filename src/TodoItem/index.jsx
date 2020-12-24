@@ -4,11 +4,12 @@
  * @Description: TodoList Item
  **/
 import React, { useState } from 'react'
-import { Checkbox, Input } from "antd";
+import {Button, Checkbox, Input} from "antd";
+import { CloseOutlined } from '@ant-design/icons'
+import './index.css'
 
-function TodoItem({ title, completed, editing }) {
+function TodoItem({ title, completed, editing, handleDelete }) {
     const [editText, setEditText] = useState(title)
-
 
     const handleChange = e => {
         const input = e.target.value
@@ -16,11 +17,14 @@ function TodoItem({ title, completed, editing }) {
     }
 
     return (
-        <div>
-            <Checkbox checked={completed} />
-            {
-                editing ? <Input value={editText} onChange={handleChange} /> : <label>{title}</label>
-            }
+        <div className='todo-item'>
+            <div>
+                <Checkbox checked={completed} />
+                {
+                    editing ? <Input value={editText} onChange={handleChange} /> : <label>{title}</label>
+                }
+            </div>
+            <CloseOutlined onClick={handleDelete} />
         </div>
     )
 }
