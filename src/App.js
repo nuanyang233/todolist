@@ -24,7 +24,6 @@ function App({ initTodoList }) {
 
     if(title) {
       setTodoList([...todoList, { id: uuidV4(), title, completed: false }])
-      // model.addTodo(title)
       newField.current.state.value = ''
     }
   }
