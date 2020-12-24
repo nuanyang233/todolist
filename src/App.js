@@ -36,6 +36,19 @@ function App({ initTodoList }) {
     setTodoList(prevState => prevState.map(todo => todo.id !== id ? todo : { ...todo, completed: !todo.completed }))
   }
 
+  const handleEdit = (id) => {
+    setEditing(id)
+  }
+
+  const handleCancelEdit = () => {
+    setEditing(null)
+  }
+
+  const handleSave = (id, title) => {
+    setTodoList(prevState => prevState.map(todo => todo.id !== id ? todo : { ...todo, title }))
+    setEditing(null)
+  }
+
   const needShowTodoList = useMemo(() => {
     const showTodos = todoList.filter(todo => {
       switch(showState) {
@@ -72,9 +85,12 @@ function App({ initTodoList }) {
               renderItem={todo => <List.Item>
                 <TodoItem
                     {...todo}
-                    editing={editing}
+                    editing={editing === todo.id}
                     handleDelete={() => handleDelete(todo.id)}
                     handleToggle={() => handleToggle(todo.id)}
+                    handleEdit={() => handleEdit(todo.id)}
+                    handleCancelEdit={() => handleCancelEdit()}
+                    handleSave={(text) => handleSave(todo.id, text)}
                 />
               </List.Item>}
           />

@@ -4,3 +4,28 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.todo-item .todo-item-main {
+    flex-basis: 70%;
+    display: flex;
+    align-items: center;
+}
+
+.todo-item-label {
+    margin-left: 16px;
+    text-align: left;
+    width: 100%
+}
+
+.todo-item-main .ant-input {
+    display: none
+}
+
+.editing .todo-item-label {
+    display: none
+}
+
+.editing .ant-input {
+    margin-left: 16px;
+    display: block
+}
