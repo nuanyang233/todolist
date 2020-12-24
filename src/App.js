@@ -88,7 +88,7 @@ function App({ initTodoList }) {
   return (
       <div className="App">
         <div className="main">
-          <h1>Todo List</h1>
+          <h1>Todos List</h1>
           <Input
               autoFocus={true}
               ref={newField}
@@ -97,16 +97,8 @@ function App({ initTodoList }) {
           />
           <List
               bordered
+              split
               dataSource={needShowTodoList}
-              footer={
-                (!!activeTodoCount || !!completedTodoCount) && <TodoListFooter
-                    activeTodoCount={activeTodoCount}
-                    completedTodoCount={completedTodoCount}
-                    handleChangeShowState={handleChangeShowState}
-                    handleClearAllCompleted={handleClearAllCompleted}
-                    showState={showState}
-                />
-              }
               renderItem={todo => <List.Item>
                 <TodoItem
                     {...todo}
@@ -118,6 +110,16 @@ function App({ initTodoList }) {
                     handleSave={(text) => handleSave(todo.id, text)}
                 />
               </List.Item>}
+              footer={
+                (!!activeTodoCount || !!completedTodoCount) && <TodoListFooter
+                    activeTodoCount={activeTodoCount}
+                    completedTodoCount={completedTodoCount}
+                    handleChangeShowState={handleChangeShowState}
+                    handleClearAllCompleted={handleClearAllCompleted}
+                    showState={showState}
+                />
+              }
+
           />
         </div>
       </div>

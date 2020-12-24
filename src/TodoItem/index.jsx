@@ -29,7 +29,6 @@ function TodoItem({
     }
 
     const handleSubmit = () => {
-        console.log(editText)
         const value = editText.trim()
 
         if(value) {
