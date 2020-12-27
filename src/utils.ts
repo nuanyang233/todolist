@@ -3,8 +3,9 @@
  * @Date:  2020-12-24
  * @Description: tool functions
  **/
+import {ITodoItem} from "./App";
 
-export const storage = (namespace, data) => {
+export const storage = (namespace:string, data?:any) => {
     try {
         if (data) {
             return localStorage.setItem(namespace, JSON.stringify(data))

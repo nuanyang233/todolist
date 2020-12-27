@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { Input, List } from "antd";
 import { v4 as uuidV4 } from 'uuid'
 import TodoListFooter from "./TodoListFooter";
@@ -7,6 +7,7 @@ import { storage } from "./utils";
 import {ACTIVE_TODOS, ALL_TODOS, COMPLETED_TODOS, ENTER_KEY} from "./constants";
 import './App.css';
 import 'antd/dist/antd.css';
+
 
 function App({ initTodoList }) {
   const newField = useRef()
