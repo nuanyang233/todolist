@@ -3,7 +3,7 @@
  * @Date:  2020-12-24
  * @Description: TodoList Item
  **/
-import React, { useState, useRef, useEffect } from 'react'
+import React, {useState, useRef, useEffect, MutableRefObject, ChangeEvent, KeyboardEvent } from 'react'
 import { Checkbox, Input } from "antd";
 import { CloseOutlined } from '@ant-design/icons'
 import {ENTER_KEY, ESCAPE_KEY} from "../constants";
@@ -18,12 +18,12 @@ function TodoItem({
   handleEdit,
   handleCancelEdit,
   handleSave
-}) {
-    const inputRef = useRef()
+}:ITodoItemProps) {
+    const inputRef = useRef() as MutableRefObject<Input>
 
     const [editText, setEditText] = useState(title)
 
-    const handleChange = e => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target
         setEditText(input.value)
     }
@@ -40,19 +40,19 @@ function TodoItem({
 
     }
 
-    const handleKeyDown = e => {
+    const handleKeyDown = (e:KeyboardEvent) => {
         // If user enter Escape, cancel the editing state
-        if(e.keyCode === ESCAPE_KEY) {
+        if(e.code === ESCAPE_KEY) {
             setEditText(title)
             handleCancelEdit()
-        } else if (e.keyCode === ENTER_KEY) {
+        } else if (e.code === ENTER_KEY) {
             handleSubmit()
         }
     }
 
     // autoFocus
     useEffect(() => {
-        if(!!editing) {
+        if(editing) {
             inputRef.current.focus()
         }
     }, [editing])
